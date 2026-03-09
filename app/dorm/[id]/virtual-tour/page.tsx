@@ -1,6 +1,5 @@
 "use client"
 
-import type { ComponentType } from "react"
 import { useState, useMemo, useCallback, useEffect } from "react"
 import { useParams } from "next/navigation"
 import Link from "next/link"
