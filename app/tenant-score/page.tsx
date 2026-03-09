@@ -21,6 +21,7 @@ import {
   EyeOff,
   ChevronDown,
   ChevronUp,
+  type LucideIcon,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -31,7 +32,7 @@ interface ScoreCategory {
   name: string
   score: number
   maxScore: number
-  icon: React.ComponentType<{ className?: string }>
+  icon: LucideIcon
   description: string
   factors: { label: string; status: "positive" | "neutral" | "negative" }[]
 }
@@ -45,7 +46,7 @@ interface TenantReport {
   verified: boolean
   categories: ScoreCategory[]
   history: { period: string; score: number }[]
-  badges: { id: string; name: string; icon: React.ComponentType<{ className?: string }> }[]
+  badges: { id: string; name: string; icon: LucideIcon }[]
 }
 
 const mockTenantReport: TenantReport = {

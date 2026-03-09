@@ -1,5 +1,6 @@
 "use client"
 
+import type { ComponentType } from "react"
 import { useState, useMemo, useCallback, useEffect } from "react"
 import { useParams } from "next/navigation"
 import Link from "next/link"
@@ -30,6 +31,7 @@ import {
   Calendar,
   Clock,
   Check,
+  type LucideIcon,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -41,7 +43,7 @@ interface Hotspot {
   y: number
   label: string
   description: string
-  icon: React.ComponentType<{ className?: string }>
+  icon: LucideIcon
 }
 
 interface TourRoom {
@@ -271,15 +273,20 @@ export default function VirtualTourPage() {
               >
                 <X className="h-4 w-4" />
               </button>
-              <div className="flex items-start gap-3">
-                <div className="rounded-xl bg-primary/20 p-2.5 text-primary">
-                  <activeHotspot.icon className="h-5 w-5" />
-                </div>
-                <div>
-                  <h3 className="font-semibold">{activeHotspot.label}</h3>
-                  <p className="mt-1 text-sm text-white/70">{activeHotspot.description}</p>
-                </div>
-              </div>
+              {(() => {
+                const HotspotIcon = activeHotspot.icon
+                return (
+                  <div className="flex items-start gap-3">
+                    <div className="rounded-xl bg-primary/20 p-2.5 text-primary">
+                      <HotspotIcon className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold">{activeHotspot.label}</h3>
+                      <p className="mt-1 text-sm text-white/70">{activeHotspot.description}</p>
+                    </div>
+                  </div>
+                )
+              })()}
             </Card>
           </div>
         )}

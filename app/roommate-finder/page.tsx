@@ -25,6 +25,7 @@ import {
   Clock,
   Volume2,
   VolumeX,
+  type LucideIcon,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -53,7 +54,7 @@ interface RoommateProfile {
   verified: boolean
 }
 
-const interestIcons: Record<string, React.ComponentType<{ className?: string }>> = {
+const interestIcons: Record<string, LucideIcon> = {
   Music: Music,
   Reading: BookOpen,
   "Fitness": Dumbbell,
