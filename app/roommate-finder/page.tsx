@@ -73,7 +73,7 @@ const mockRoommates: RoommateProfile[] = [
     avatar: "/avatars/avatar-1.jpg",
     bio: "Nursing student looking for a quiet and responsible roommate. I love cooking and occasionally watching K-dramas on weekends!",
     budget: { min: 3000, max: 4500 },
-    moveInDate: "June 2025",
+    moveInDate: "April 2026",
     location: "Sampaloc, Manila",
     lifestyle: {
       sleepSchedule: "early",
@@ -96,7 +96,7 @@ const mockRoommates: RoommateProfile[] = [
     avatar: "/avatars/avatar-2.jpg",
     bio: "Board exam reviewer who needs a focused environment. I'm organized and prefer a tidy living space. Weekend hangouts are welcome!",
     budget: { min: 3500, max: 5000 },
-    moveInDate: "May 2025",
+    moveInDate: "April 2026",
     location: "U-Belt, Manila",
     lifestyle: {
       sleepSchedule: "late",
@@ -119,7 +119,7 @@ const mockRoommates: RoommateProfile[] = [
     avatar: "/avatars/avatar-3.jpg",
     bio: "IT student and part-time freelancer. Night owl but I use headphones! Looking for someone chill who respects personal space.",
     budget: { min: 2800, max: 4000 },
-    moveInDate: "June 2025",
+    moveInDate: "May 2026",
     location: "Sampaloc, Manila",
     lifestyle: {
       sleepSchedule: "late",
@@ -142,7 +142,7 @@ const mockRoommates: RoommateProfile[] = [
     avatar: "/avatars/avatar-4.jpg",
     bio: "Future pharmacist preparing for boards. Early riser, gym enthusiast, and a neat freak. Looking for a like-minded roommate!",
     budget: { min: 4000, max: 5500 },
-    moveInDate: "April 2025",
+    moveInDate: "March 2026",
     location: "U-Belt, Manila",
     lifestyle: {
       sleepSchedule: "early",
@@ -165,7 +165,7 @@ const mockRoommates: RoommateProfile[] = [
     avatar: "/avatars/avatar-5.jpg",
     bio: "CommArts student who loves creative projects. Moderate noise is okay - I play guitar sometimes! Looking for an easygoing roommate.",
     budget: { min: 3500, max: 4800 },
-    moveInDate: "June 2025",
+    moveInDate: "April 2026",
     location: "Sampaloc, Manila",
     lifestyle: {
       sleepSchedule: "flexible",
@@ -188,7 +188,7 @@ const mockRoommates: RoommateProfile[] = [
     avatar: "/avatars/avatar-6.jpg",
     bio: "CS student and aspiring game dev. I code late at night but I'm quiet about it. Looking for a tech-friendly roommate!",
     budget: { min: 3000, max: 4200 },
-    moveInDate: "May 2025",
+    moveInDate: "April 2026",
     location: "U-Belt, Manila",
     lifestyle: {
       sleepSchedule: "late",
