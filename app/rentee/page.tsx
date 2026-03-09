@@ -81,7 +81,7 @@ const contractSummaries: ContractSummary[] = [
     roomId: "shared-loft",
     status: "awaiting-signatures",
     nextAction: "Collect remaining roommate signatures",
-    dueDate: "Nov 20, 2025",
+    dueDate: "Mar 20, 2026",
     progress: 62,
   },
   {
@@ -89,7 +89,7 @@ const contractSummaries: ContractSummary[] = [
     roomId: "studio",
     status: "active",
     nextAction: "Next payment auto-charge",
-    dueDate: "Dec 05, 2025",
+    dueDate: "Apr 05, 2026",
     progress: 100,
   },
 ]
@@ -99,13 +99,13 @@ const roommateInvites: RoommateInvite[] = [
     name: "Karla De Leon",
     email: "karla.deleon@email.com",
     status: "signature-pending",
-    invitedOn: "Nov 08, 2025",
+    invitedOn: "Mar 08, 2026",
   },
   {
     name: "Miguel Ramos",
     email: "miguel.ramos@email.com",
     status: "id-verifying",
-    invitedOn: "Nov 09, 2025",
+    invitedOn: "Mar 09, 2026",
   },
 ]
 
@@ -115,29 +115,29 @@ const maintenanceTickets: MaintenanceTicket[] = [
     dormId: 2,
     issue: "Air-conditioning thermostat stuck",
     status: "in-progress",
-    created: "Nov 03, 2025",
-    updated: "Nov 10, 2025",
+    created: "Mar 03, 2026",
+    updated: "Mar 10, 2026",
   },
   {
     id: "MT-2298",
     dormId: 1,
     issue: "WiFi intermittent on level 3",
     status: "resolved",
-    created: "Oct 28, 2025",
-    updated: "Nov 02, 2025",
+    created: "Feb 28, 2026",
+    updated: "Mar 02, 2026",
   },
 ]
 
 const upcomingEvents: UpcomingEvent[] = [
   {
     title: "Move-in orientation",
-    date: "Nov 18, 2025",
+    date: "Mar 18, 2026",
     location: "Roof deck lounge",
     summary: "Meet the community managers, get your access badges, and tour the amenities.",
   },
   {
     title: "Study pod reservations open",
-    date: "Nov 22, 2025",
+    date: "Mar 22, 2026",
     location: "Level 3 Co-work",
     summary: "Secure private study pods for finals week. Slots refresh weekly.",
   },
@@ -148,16 +148,16 @@ const paymentHistory: PaymentRecord[] = [
     id: "INV-1014",
     dormId: 2,
     amount: 4200,
-    dueDate: "Nov 05, 2025",
-    paidDate: "Nov 04, 2025",
+    dueDate: "Mar 05, 2026",
+    paidDate: "Mar 04, 2026",
     method: "Debit Card",
   },
   {
     id: "INV-1007",
     dormId: 1,
     amount: 4500,
-    dueDate: "Oct 05, 2025",
-    paidDate: "Oct 05, 2025",
+    dueDate: "Feb 05, 2026",
+    paidDate: "Feb 05, 2026",
     method: "GCash",
   },
 ]
@@ -167,13 +167,13 @@ const supportThreads: SupportThread[] = [
     id: "SUP-239",
     subject: "Request for early move-in",
     status: "responded",
-    lastMessage: "Nov 12, 2025",
+    lastMessage: "Mar 12, 2026",
   },
   {
     id: "SUP-244",
     subject: "Roommate replacement options",
     status: "awaiting-user",
-    lastMessage: "Nov 11, 2025",
+    lastMessage: "Mar 11, 2026",
   },
 ]
 

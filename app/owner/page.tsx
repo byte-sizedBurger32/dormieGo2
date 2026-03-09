@@ -53,14 +53,14 @@ const portfolioSummary: PortfolioProperty[] = [
 ]
 
 const leasingPipeline: LeasingLead[] = [
-  { id: "LP-3209", dormId: 4, roomType: "Luxury Duo Suite", status: "offered", submitted: "Nov 12, 2025" },
-  { id: "LP-3194", dormId: 2, roomType: "Executive Loft (Shared)", status: "toured", submitted: "Nov 10, 2025" },
-  { id: "LP-3188", dormId: 1, roomType: "Shared 2-Bed Suite", status: "new", submitted: "Nov 09, 2025" },
+  { id: "LP-3209", dormId: 4, roomType: "Luxury Duo Suite", status: "offered", submitted: "Mar 12, 2026" },
+  { id: "LP-3194", dormId: 2, roomType: "Executive Loft (Shared)", status: "toured", submitted: "Mar 10, 2026" },
+  { id: "LP-3188", dormId: 1, roomType: "Shared 2-Bed Suite", status: "new", submitted: "Mar 09, 2026" },
 ]
 
 const maintenanceQueue: MaintenanceItem[] = [
   { id: "MN-841", dormId: 4, issue: "Elevator service calibration", priority: "high", sla: "Due in 2 days" },
-  { id: "MN-838", dormId: 2, issue: "Gym equipment preventive check", priority: "medium", sla: "Scheduled Nov 18" },
+  { id: "MN-838", dormId: 2, issue: "Gym equipment preventive check", priority: "medium", sla: "Scheduled Mar 18" },
   { id: "MN-836", dormId: 1, issue: "Laundry machine firmware update", priority: "low", sla: "Queued" },
 ]
 
