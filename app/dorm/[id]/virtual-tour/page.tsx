@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useMemo, useCallback, useEffect } from "react"
-import { useParams, useRouter } from "next/navigation"
+import { useParams } from "next/navigation"
 import Link from "next/link"
 import {
   ChevronLeft,
@@ -23,12 +23,13 @@ import {
   Wind,
   Play,
   Pause,
-  Volume2,
-  VolumeX,
   Camera,
   Share2,
   Heart,
   X,
+  Calendar,
+  Clock,
+  Check,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -51,79 +52,8 @@ interface TourRoom {
   hotspots: Hotspot[]
 }
 
-const tourData: Record<number, TourRoom[]> = {
-  1: [
-    {
-      id: "living-area",
-      name: "Living Area",
-      image: "/modern-student-dorm-room.jpg",
-      description: "Spacious living area with modern furnishings and natural lighting",
-      hotspots: [
-        { id: "h1", x: 30, y: 40, label: "Study Desk", description: "Ergonomic desk with built-in USB charging", icon: Lightbulb },
-        { id: "h2", x: 70, y: 50, label: "Air Conditioning", description: "Split-type inverter AC for energy efficiency", icon: Wind },
-        { id: "h3", x: 50, y: 70, label: "WiFi Router", description: "Fiber connection up to 100 Mbps", icon: Wifi },
-      ],
-    },
-    {
-      id: "bedroom",
-      name: "Bedroom",
-      image: "/bright-spacious-dorm-room.jpg",
-      description: "Comfortable bedroom with premium mattress and ample storage",
-      hotspots: [
-        { id: "h4", x: 40, y: 60, label: "Bed", description: "Queen-size bed with orthopedic mattress", icon: Bed },
-        { id: "h5", x: 80, y: 30, label: "Closet", description: "Built-in wardrobe with organizers", icon: Box },
-        { id: "h6", x: 20, y: 40, label: "Window", description: "Large windows with blackout curtains", icon: Eye },
-      ],
-    },
-    {
-      id: "bathroom",
-      name: "Bathroom",
-      image: "/affordable-dorm-room.jpg",
-      description: "Modern bathroom with hot and cold shower",
-      hotspots: [
-        { id: "h7", x: 50, y: 50, label: "Shower", description: "Rain shower with water heater", icon: Bath },
-      ],
-    },
-  ],
-}
-
-// Default tour for all dorms
-const defaultTour: TourRoom[] = [
-  {
-    id: "main-room",
-    name: "Main Room",
-    image: "/modern-student-dorm-room.jpg",
-    description: "Comfortable living space with all essential amenities",
-    hotspots: [
-      { id: "h1", x: 30, y: 40, label: "Study Area", description: "Dedicated space for studying and work", icon: Lightbulb },
-      { id: "h2", x: 70, y: 50, label: "Climate Control", description: "Air conditioning for your comfort", icon: Wind },
-      { id: "h3", x: 50, y: 70, label: "High-Speed Internet", description: "WiFi included in your stay", icon: Wifi },
-    ],
-  },
-  {
-    id: "sleeping-area",
-    name: "Sleeping Area",
-    image: "/bright-spacious-dorm-room.jpg",
-    description: "Restful sleeping area with quality bedding",
-    hotspots: [
-      { id: "h4", x: 40, y: 60, label: "Comfortable Bed", description: "Quality mattress for restful sleep", icon: Bed },
-      { id: "h5", x: 80, y: 30, label: "Storage", description: "Personal storage space", icon: Box },
-    ],
-  },
-  {
-    id: "facilities",
-    name: "Common Facilities",
-    image: "/luxury-student-accommodation.jpg",
-    description: "Shared amenities and common areas",
-    hotspots: [
-      { id: "h6", x: 50, y: 50, label: "Amenities", description: "Access to shared facilities", icon: Sparkles },
-    ],
-  },
-]
-
 export default function VirtualTourPage() {
   const params = useParams()
-  const router = useRouter()
   const id = params.id as string
   const numericId = Number.parseInt(id, 10)
 
@@ -131,7 +61,39 @@ export default function VirtualTourPage() {
     return dorms.find((entry) => entry.slug === id || entry.id === numericId) ?? dorms[0]
   }, [id, numericId])
 
-  const tourRooms = tourData[dorm.id] || defaultTour
+  // Create tour rooms from dorm gallery
+  const tourRooms: TourRoom[] = useMemo(() => {
+    const roomNames = ["Main Living Area", "Bedroom View", "Common Area"]
+    const descriptions = [
+      "Spacious main area with modern furnishings and natural lighting",
+      "Comfortable sleeping area with quality amenities",
+      "Shared facilities and common spaces for residents",
+    ]
+    const hotspotSets: Hotspot[][] = [
+      [
+        { id: "h1", x: 25, y: 35, label: "Study Desk", description: "Ergonomic workspace with built-in USB charging", icon: Lightbulb },
+        { id: "h2", x: 75, y: 45, label: "Air Conditioning", description: "Split-type inverter AC for energy efficiency", icon: Wind },
+        { id: "h3", x: 50, y: 65, label: "WiFi Router", description: "High-speed fiber connection included", icon: Wifi },
+      ],
+      [
+        { id: "h4", x: 40, y: 55, label: "Bed", description: "Quality mattress for restful sleep", icon: Bed },
+        { id: "h5", x: 80, y: 30, label: "Storage", description: "Built-in wardrobe with organizers", icon: Box },
+        { id: "h6", x: 20, y: 40, label: "Window", description: "Large windows with natural lighting", icon: Eye },
+      ],
+      [
+        { id: "h7", x: 50, y: 50, label: "Facilities", description: "Access to shared amenities", icon: Bath },
+        { id: "h8", x: 30, y: 60, label: "Lounge", description: "Common area for relaxation", icon: Sparkles },
+      ],
+    ]
+
+    return dorm.gallery.map((image, index) => ({
+      id: `room-${index}`,
+      name: roomNames[index] || `View ${index + 1}`,
+      image,
+      description: descriptions[index] || "Explore this space",
+      hotspots: hotspotSets[index] || [],
+    }))
+  }, [dorm.gallery])
 
   const [currentRoomIndex, setCurrentRoomIndex] = useState(0)
   const [isFullscreen, setIsFullscreen] = useState(false)
@@ -139,9 +101,12 @@ export default function VirtualTourPage() {
   const [rotation, setRotation] = useState(0)
   const [activeHotspot, setActiveHotspot] = useState<Hotspot | null>(null)
   const [isAutoRotating, setIsAutoRotating] = useState(false)
-  const [isMuted, setIsMuted] = useState(true)
   const [isFavorited, setIsFavorited] = useState(false)
   const [showControls, setShowControls] = useState(true)
+  const [showPlanModal, setShowPlanModal] = useState(false)
+  const [planStep, setPlanStep] = useState(1)
+  const [selectedDate, setSelectedDate] = useState("")
+  const [selectedTime, setSelectedTime] = useState("")
 
   const currentRoom = tourRooms[currentRoomIndex]
 
@@ -160,7 +125,7 @@ export default function VirtualTourPage() {
     const handleActivity = () => {
       setShowControls(true)
       clearTimeout(timeout)
-      timeout = setTimeout(() => setShowControls(false), 3000)
+      timeout = setTimeout(() => setShowControls(false), 4000)
     }
     handleActivity()
     window.addEventListener("mousemove", handleActivity)
@@ -206,6 +171,19 @@ export default function VirtualTourPage() {
     handleReset()
   }, [tourRooms.length, handleReset])
 
+  const availableTimes = ["9:00 AM", "10:00 AM", "11:00 AM", "2:00 PM", "3:00 PM", "4:00 PM"]
+
+  const handlePlanSubmit = () => {
+    setPlanStep(3)
+    // Reset after showing confirmation
+    setTimeout(() => {
+      setShowPlanModal(false)
+      setPlanStep(1)
+      setSelectedDate("")
+      setSelectedTime("")
+    }, 3000)
+  }
+
   return (
     <div className="relative min-h-screen bg-black">
       {/* Header Overlay */}
@@ -216,7 +194,7 @@ export default function VirtualTourPage() {
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between">
           <Link
-            href={`/dorm/${dorm.id}`}
+            href={`/dorm/${dorm.slug || dorm.id}`}
             className="flex items-center gap-2 rounded-full bg-white/20 px-3 py-2 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/30"
           >
             <ChevronLeft className="h-4 w-4" />
@@ -269,7 +247,7 @@ export default function VirtualTourPage() {
                 className={`absolute flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full transition-all ${
                   activeHotspot?.id === hotspot.id
                     ? "scale-125 bg-primary text-primary-foreground"
-                    : "bg-white/90 text-foreground hover:scale-110 hover:bg-white"
+                    : "animate-pulse bg-white/90 text-foreground hover:scale-110 hover:bg-white"
                 }`}
                 style={{
                   left: `${hotspot.x}%`,
@@ -335,7 +313,7 @@ export default function VirtualTourPage() {
           </div>
         </div>
 
-        {/* Room Navigation */}
+        {/* Room Navigation Thumbnails */}
         <div
           className={`absolute bottom-4 left-0 right-0 z-30 px-4 transition-opacity duration-300 ${
             showControls ? "opacity-100" : "opacity-0"
@@ -420,15 +398,6 @@ export default function VirtualTourPage() {
             >
               {isFullscreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
             </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsMuted(!isMuted)}
-              className="text-white hover:bg-white/20"
-              title={isMuted ? "Unmute" : "Mute"}
-            >
-              {isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
-            </Button>
           </Card>
         </div>
 
@@ -458,11 +427,11 @@ export default function VirtualTourPage() {
         >
           <Card className="flex items-center gap-2 border border-white/20 bg-black/70 px-3 py-2 backdrop-blur">
             <Camera className="h-4 w-4 text-primary" />
-            <span className="text-xs font-semibold text-white">360° Virtual Tour</span>
+            <span className="text-xs font-semibold text-white">360° AR Virtual Tour</span>
           </Card>
         </div>
 
-        {/* Dorm Info Panel */}
+        {/* Dorm Info Panel with Plan Visit */}
         <div
           className={`absolute left-4 top-32 z-30 max-w-xs transition-opacity duration-300 ${
             showControls ? "opacity-100" : "opacity-0"
@@ -474,23 +443,34 @@ export default function VirtualTourPage() {
               <MapPin className="h-3 w-3" />
               {dorm.location}
             </p>
-            <div className="mt-3 flex items-center justify-between">
+            <div className="mt-3 space-y-2">
               <div>
                 <p className="text-xs text-white/50">Starting from</p>
                 <p className="text-lg font-bold text-primary">₱{dorm.price.toLocaleString()}/mo</p>
               </div>
-              <Link href={`/dorm/${dorm.id}/finalize?room=${dorm.roomTypes[0]?.id}`}>
-                <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                  Book Now
+              <div className="flex gap-2">
+                <Link href={`/dorm/${dorm.slug || dorm.id}/finalize?room=${dorm.roomTypes[0]?.id}`} className="flex-1">
+                  <Button size="sm" className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
+                    Book Now
+                  </Button>
+                </Link>
+                <Button 
+                  size="sm" 
+                  variant="outline"
+                  onClick={() => setShowPlanModal(true)}
+                  className="border-white/30 bg-white/10 text-white hover:bg-white/20"
+                >
+                  <Calendar className="mr-1 h-3 w-3" />
+                  Plan Visit
                 </Button>
-              </Link>
+              </div>
             </div>
           </Card>
         </div>
       </div>
 
       {/* Instructions Toast */}
-      <div className="absolute bottom-40 left-1/2 z-40 -translate-x-1/2">
+      <div className="pointer-events-none absolute bottom-40 left-1/2 z-40 -translate-x-1/2">
         <Card className="flex items-center gap-2 border border-white/20 bg-black/70 px-4 py-2 backdrop-blur">
           <Info className="h-4 w-4 text-primary" />
           <span className="text-xs text-white">
@@ -498,6 +478,151 @@ export default function VirtualTourPage() {
           </span>
         </Card>
       </div>
+
+      {/* Plan Visit Modal */}
+      {showPlanModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+          <Card className="w-full max-w-md border border-border bg-background p-6 shadow-xl">
+            {planStep === 1 && (
+              <>
+                <div className="mb-6">
+                  <h2 className="text-xl font-bold">Plan Your Visit</h2>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    Schedule an in-person tour of {dorm.name}
+                  </p>
+                </div>
+                <div className="space-y-4">
+                  <div>
+                    <label className="mb-2 block text-sm font-medium">Select Date</label>
+                    <input
+                      type="date"
+                      value={selectedDate}
+                      onChange={(e) => setSelectedDate(e.target.value)}
+                      min={new Date().toISOString().split("T")[0]}
+                      className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm"
+                    />
+                  </div>
+                  <div>
+                    <label className="mb-2 block text-sm font-medium">Select Time</label>
+                    <div className="grid grid-cols-3 gap-2">
+                      {availableTimes.map((time) => (
+                        <button
+                          key={time}
+                          onClick={() => setSelectedTime(time)}
+                          className={`flex items-center justify-center gap-1 rounded-lg border px-3 py-2 text-sm transition ${
+                            selectedTime === time
+                              ? "border-primary bg-primary/10 text-primary"
+                              : "border-border hover:border-primary/50"
+                          }`}
+                        >
+                          <Clock className="h-3 w-3" />
+                          {time}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-6 flex gap-3">
+                  <Button
+                    variant="outline"
+                    className="flex-1"
+                    onClick={() => setShowPlanModal(false)}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    className="flex-1"
+                    disabled={!selectedDate || !selectedTime}
+                    onClick={() => setPlanStep(2)}
+                  >
+                    Continue
+                  </Button>
+                </div>
+              </>
+            )}
+
+            {planStep === 2 && (
+              <>
+                <div className="mb-6">
+                  <h2 className="text-xl font-bold">Your Details</h2>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    We will confirm your visit within 24 hours
+                  </p>
+                </div>
+                <div className="space-y-4">
+                  <input
+                    type="text"
+                    placeholder="Full name"
+                    className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm"
+                  />
+                  <input
+                    type="email"
+                    placeholder="Email address"
+                    className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm"
+                  />
+                  <input
+                    type="tel"
+                    placeholder="Phone number"
+                    className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm"
+                  />
+                  <div className="rounded-lg bg-muted/50 p-3">
+                    <p className="text-sm font-medium">Visit Summary</p>
+                    <div className="mt-2 flex items-center gap-4 text-xs text-muted-foreground">
+                      <span className="flex items-center gap-1">
+                        <Calendar className="h-3 w-3" />
+                        {new Date(selectedDate).toLocaleDateString("en-US", {
+                          weekday: "short",
+                          month: "short",
+                          day: "numeric",
+                        })}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Clock className="h-3 w-3" />
+                        {selectedTime}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-6 flex gap-3">
+                  <Button
+                    variant="outline"
+                    className="flex-1"
+                    onClick={() => setPlanStep(1)}
+                  >
+                    Back
+                  </Button>
+                  <Button className="flex-1" onClick={handlePlanSubmit}>
+                    Confirm Visit
+                  </Button>
+                </div>
+              </>
+            )}
+
+            {planStep === 3 && (
+              <div className="py-8 text-center">
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+                  <Check className="h-8 w-8 text-primary" />
+                </div>
+                <h2 className="text-xl font-bold">Visit Scheduled!</h2>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  We will send a confirmation to your email shortly.
+                </p>
+                <p className="mt-4 text-sm">
+                  <span className="font-medium">{dorm.name}</span>
+                  <br />
+                  {new Date(selectedDate).toLocaleDateString("en-US", {
+                    weekday: "long",
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric",
+                  })}{" "}
+                  at {selectedTime}
+                </p>
+              </div>
+            )}
+          </Card>
+        </div>
+      )}
     </div>
   )
 }
