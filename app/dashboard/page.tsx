@@ -11,6 +11,11 @@ import {
   CheckCircle,
   Clock,
   Download,
+  Phone,
+  Users,
+  Shield,
+  Camera,
+  ArrowRight,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -215,6 +220,54 @@ export default function DashboardPage() {
               </div>
             </div>
           </Card>
+
+          {/* Quick Access Features */}
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+            <Link href="/emergency">
+              <Card className="group flex h-full cursor-pointer flex-col items-center gap-3 border border-destructive/20 bg-destructive/5 p-4 text-center transition hover:border-destructive/40 hover:shadow-md">
+                <div className="rounded-xl bg-destructive/10 p-3 text-destructive transition group-hover:bg-destructive group-hover:text-destructive-foreground">
+                  <Phone className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="font-semibold text-foreground">Emergency</p>
+                  <p className="text-xs text-muted-foreground">24/7 Support</p>
+                </div>
+              </Card>
+            </Link>
+            <Link href="/roommate-finder">
+              <Card className="group flex h-full cursor-pointer flex-col items-center gap-3 border border-primary/20 bg-primary/5 p-4 text-center transition hover:border-primary/40 hover:shadow-md">
+                <div className="rounded-xl bg-primary/10 p-3 text-primary transition group-hover:bg-primary group-hover:text-primary-foreground">
+                  <Users className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="font-semibold text-foreground">Roommate</p>
+                  <p className="text-xs text-muted-foreground">Find Match</p>
+                </div>
+              </Card>
+            </Link>
+            <Link href="/tenant-score">
+              <Card className="group flex h-full cursor-pointer flex-col items-center gap-3 border border-accent/20 bg-accent/5 p-4 text-center transition hover:border-accent/40 hover:shadow-md">
+                <div className="rounded-xl bg-accent/10 p-3 text-accent-foreground transition group-hover:bg-accent group-hover:text-accent-foreground">
+                  <Shield className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="font-semibold text-foreground">Tenant Score</p>
+                  <p className="text-xs text-muted-foreground">View Profile</p>
+                </div>
+              </Card>
+            </Link>
+            <Link href="/listings">
+              <Card className="group flex h-full cursor-pointer flex-col items-center gap-3 border border-border p-4 text-center transition hover:border-primary/40 hover:shadow-md">
+                <div className="rounded-xl bg-muted p-3 text-muted-foreground transition group-hover:bg-primary group-hover:text-primary-foreground">
+                  <Camera className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="font-semibold text-foreground">Virtual Tours</p>
+                  <p className="text-xs text-muted-foreground">Explore Dorms</p>
+                </div>
+              </Card>
+            </Link>
+          </div>
 
           <div className="flex justify-center md:justify-start">
             <div className="flex w-full max-w-full items-center overflow-hidden rounded-full bg-muted/60 p-1 text-sm md:max-w-md">

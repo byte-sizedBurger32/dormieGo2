@@ -19,6 +19,7 @@ import {
   FileSignature,
   Wallet,
   GraduationCap,
+  Camera,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -298,6 +299,11 @@ function DormDetailsContent({ id }: { id: string }) {
                   >
                     <Users className="mr-2 h-4 w-4" /> {isInComparison ? "In comparison" : "Add to comparison"}
                   </Button>
+                  <Link href={`/dorm/${dorm.id}/virtual-tour`} className="block">
+                    <Button variant="outline" className="h-12 w-full border-primary/30 text-primary hover:bg-primary/10">
+                      <Camera className="mr-2 h-4 w-4" /> 360° Virtual Tour
+                    </Button>
+                  </Link>
                 </div>
 
                 {sharedRooms.length > 0 && (
